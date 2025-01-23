@@ -25,19 +25,18 @@ fun main(args: Array<String>) {
 class UrlRedirectController(private val urlRedirectService: UrlRedirectService) {
 
     @PostMapping("/data/shorten")
-    fun shortenUrl(@RequestBody request: Map<String, String>): ResponseEntity<String> {
-        val longUrl = request["longUrl"] ?: return ResponseEntity.badRequest().body("Missing longUrl")
-        val shortUrl = urlRedirectService.shorten(longUrl)
-        return ResponseEntity.ok(shortUrl)
+    fun shortenUrl(@RequestBody request: Map<String, String>): String {
+        val longUrl = request["longUrl"] ?: throw IllegalArgumentException("Missing longUrl")
+        return urlRedirectService.shorten(longUrl)
     }
 
     @GetMapping("/{shortUrl}")
     fun getLongUrl(@PathVariable shortUrl: String): ResponseEntity<String> {
         val longUrl = urlRedirectService.redirect(shortUrl)
         return if (longUrl.startsWith("Error")) {
-            ResponseEntity.badRequest().body(longUrl)
+            ResponseEntity.notFound().build()
         } else {
-            ResponseEntity.ok(longUrl)
+            ResponseEntity.status(302).header("Location", longUrl).build()
         }
     }
 }
@@ -50,7 +49,7 @@ class UrlRedirectService {
     private val idGenerator = AtomicLong(56800235584) // Start with a large number to ensure 7-character Base62
 
     init {
-        initializeDatabase()
+        this.initializeDatabase()
     }
 
     fun initializeDatabase() {
@@ -76,19 +75,16 @@ class UrlRedirectService {
 
     fun redirect(shortURL: String): String {
         if (cache.containsKey(shortURL)) {
-            println("Cache hit for $shortURL")
             return cache[shortURL]!!
         }
 
         if (database.containsKey(shortURL)) {
-            println("Cache miss for $shortURL. Fetching from database.")
             val longURL = database[shortURL]!!
             cache[shortURL] = longURL
             return longURL
         }
 
-        println("Invalid short URL: $shortURL")
-        return "Error: Invalid short URL"
+        return "Error: Short URL not found"
     }
 
     private fun Long.toBase62(): String {
