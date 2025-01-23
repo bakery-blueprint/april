@@ -53,8 +53,8 @@ class UrlRedirectService {
     }
 
     fun initializeDatabase() {
-        database["zn9edcu"] = "https://en.wikipedia.org/wiki/Systems_design"
-        database["abc123"] = "https://example.com/some-page"
+        database["zn9edcu"] = "https://www.youtube.com/"
+        database["aaaaaaa"] = "https://github.com/bakery-blueprint/april"
     }
 
     fun shorten(longURL: String): String {
