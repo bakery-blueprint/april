@@ -1,4 +1,4 @@
-# Chapter 3 "호텔 예약 시스템"
+# Chapter 3 호텔 예약 시스템
 
 ## 1단계. 문제 이해 및 설계 범위 확정
 
@@ -105,6 +105,7 @@
 
 ### 3.2. 동시성 문제
 **같은 사용자가 예약 버튼을 여러 번 누름(따닥 이슈)**
+
 <img src="./images/7-7.double-booking-single-user.png" width="500"/>
 
  * 클라이언트 측 구현 : '예약' 버튼 핸들링
@@ -118,6 +119,7 @@
 
 
 **여러 사용자가 같은 객실을 동시에 예약**
+
 <img src="./images/7-11.double-booking-multiple-users.png" width="500"/>
 
  * Database Isolation Serializable 설정이 아니라면 무조건 발생할 수 있음
