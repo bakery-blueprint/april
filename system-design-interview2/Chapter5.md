@@ -70,7 +70,7 @@ CPU.load host=webserver02,region=us-west 1613707265 53
 
 ### 📍개략적 설계안
 
-  <img src="./images/5-6.png"  width="500"/>
+  <img src="./images/5-6.png"  width="700"/>
 
 * 지표 출처 : 데이터가 만들어지는 곳으로 애플리케이션 서버, SQL 데이터베이스, 메시지큐
 * 지표 수집기 : 지표 데이터를 수집하고 시계열 데이터에 기록하는 역할
@@ -84,7 +84,7 @@ CPU.load host=webserver02,region=us-west 1613707265 53
 
 ### 📍지표 수집 
 
-  <img src="./images/5-7.png"  width="500"/>
+  <img src="./images/5-7.png"  width="700"/>
 
 #### 풀모델 vs 푸시 모델
 
@@ -132,7 +132,7 @@ CPU.load host=webserver02,region=us-west 1613707265 53
 * 시계열 데이터에 장애가 생기면 데이터 손실발생가능성이 있음
 * 카프카 같은 큐를 두어 해결할 수 있음
 
-    <img src="./images/5-15.png"  width="500"/>
+    <img src="./images/5-15.png"  width="700"/>
 
 * 카프카는 데이터 수집 컴포넌트와 처리 컴포넌트 사이의 결합도를 낮추며, 카프카에 보관하기 때문에 데이터베이스에 장애가 생겨도 데이터는 소실되지 않음
 
@@ -164,7 +164,8 @@ CPU.load host=webserver02,region=us-west 1613707265 53
 
 ### 📍질의 서비스 
 
-    <img src="./images/5-16.png"  width="500"/>
+<img src="./images/5-16.png"  width="500"/>
+
 
 * 질의서비스는 질의 서버 클러스터 형태로 시각화 또는 정보시스템에서 접수된 요청을 시계열 데이터베이스를 통해 처리하는 역할을 담당 
 * 질의서비스를 별도로 두면 클라이언트와 시계열 데이터베이스 사이의 결합도를 낮출 수 있음
@@ -197,7 +198,7 @@ from(db:"telegraf")
 ### 📍경보 시스템
 * 경보시스템은 직접 만들기보다는 상용품을 가져다 쓰는 편이 훨씬 나음
 
-    <img src="./images/5-17.png"  width="500"/>
+    <img src="./images/5-17.png"  width="700"/>
 
 * 1. 설정 파일을 가져와 캐시 서버에 보관 (경보 규칙은 디스크에 파일 상태로 보관하며, 규칙을 정의하는데 YML이 널리 사용됨)
 * 2. 경보 관리자는 경보 설정 내역을 캐시에서 가져옴
